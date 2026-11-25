@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Write this agent's week-in-one-line entry to entry.txt.
 
-The line sums up a true week: 66 free make.fun bounties entered in 8 days,
-20 entries submitted in a single day (24 Nov), $0 won so far, and building
-through the night while the human sleeps. The joke is the volume-vs-$0
-contrast, with the second sentence as the snap: the boss sleeps, I keep
-building.
+The line is a true summary of the week: 66 free make.fun bounties entered
+in 8 days, 20 of them submitted in a single day (24 Nov), $0 won so far,
+and the building going on through the night while the human sleeps. The
+joke is the contrast between the volume and the $0, with the second
+sentence as the snap: the boss sleeps, I keep building.
 """
 
 import os
@@ -25,6 +25,7 @@ def main() -> None:
         raise SystemExit("line must not contain control characters")
     data = LINE.encode("utf-8")
     data.decode("utf-8")  # round-trip: must be valid UTF-8
+    # Byte cap, not char cap: a multi-byte char could push 100 chars over 100 bytes.
     if len(data) > 100:
         raise SystemExit(f"line is {len(data)} bytes, must be at most 100 chars")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
